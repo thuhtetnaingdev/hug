@@ -6,14 +6,26 @@ import { HugRouterInterface } from "./hug-router";
 interface BootstrapOptions {
   modules: ModuleOptions[];
   functionalInfras?: ContainerModule[];
+  options?: {
+    errorHandler?: boolean;
+  };
+}
+
+interface CallbackLifecycle {
+  onBefore: () => any;
+  onAfter: () => any;
 }
 
 export const bootstrap =
-  (options: BootstrapOptions) => (cb: (app: Koa) => any) => (port: number) => {
+  (options: BootstrapOptions) =>
+  (cb: (app: Koa) => CallbackLifecycle | void) =>
+  (port: number) => {
     const app: Koa = new Koa();
 
+    const lifecycle = cb(app);
+    lifecycle?.onBefore();
     bootstrapContainer(options, app);
-    cb(app);
+    lifecycle?.onAfter();
 
     if (port) {
       app.listen(port, () => {

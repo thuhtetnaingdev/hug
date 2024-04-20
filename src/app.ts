@@ -8,6 +8,24 @@ import { databaseModule } from "./infrastructure/database/mongoose.module";
 const bootstrapFunction = bootstrap({
   modules: [userModule, messageModule],
   functionalInfras: [databaseModule],
+  options: {
+    errorHandler: true,
+  },
 });
 
-export const hug = bootstrapFunction(app => {})(3000);
+export const hug = bootstrapFunction(app => {
+  return {
+    onBefore: () => {
+      app.use(async (ctx, next) => {
+        console.log("Before middleware");
+        await next();
+      });
+    },
+    onAfter: () => {
+      app.use(async (ctx, next) => {
+        console.log("After middleware");
+        await next();
+      });
+    },
+  };
+})(3000);

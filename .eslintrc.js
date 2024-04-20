@@ -22,6 +22,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "import"],
   rules: {
     eqeqeq: "error",
+    "decorator-validity": "off", // Add this line
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "no-use-before-define": "off",

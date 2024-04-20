@@ -1,16 +1,16 @@
 {
   "include": ["vite.config.*"],
   "compilerOptions": {
-    "module": "ESNext",
+    "module": "commonjs",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ESNext",
+    "target": "es2015",
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
-    "lib": ["esnext"],
+    "lib": ["es2020"],
     "esModuleInterop": true,
     "incremental": true,
     "skipLibCheck": true,
@@ -23,6 +23,5 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "moduleResolution": "node"
-  },
-  "files": ["node.d.ts"]
+  }
 }
