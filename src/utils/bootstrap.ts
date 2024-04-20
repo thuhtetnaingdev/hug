@@ -15,9 +15,12 @@ export const bootstrap =
     bootstrapContainer(options, app);
     cb(app);
 
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
-    });
+    if (port) {
+      app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+      });
+    }
+    return app;
   };
 
 const bootstrapContainer = (options: BootstrapOptions, app: Koa) => {
@@ -58,9 +61,13 @@ const constructModule = (moduleOptions: ModuleOptions) => {
     container.load(module);
     return (app: Koa) => {
       if (moduleOptions.route) {
-        const router = container.get<HugRouterInterface>(moduleOptions.route);
-        router.routes();
-        return app.use(router.execute());
+        const router: any = container.get<HugRouterInterface>(
+          moduleOptions.route
+        );
+        if (router) {
+          router?.routes();
+          return app.use(router?.execute());
+        }
       }
     };
   };

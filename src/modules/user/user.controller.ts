@@ -8,7 +8,8 @@ export class UserController {
 
   public getUser = async (ctx: Context) => {
     const user = await this.userUseCase.getUser();
-    ctx.body = { user };
+    ctx.body = { user, name: "John Doe" };
+    console.log("User", user);
     ctx.toJSON();
   };
 }

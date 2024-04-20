@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import "dotenv/config";
 import { bootstrap } from "./utils";
 import { userModule } from "./modules/user/user.module";
 import { messageModule } from "./modules/message/message.module";
@@ -9,4 +10,4 @@ const bootstrapFunction = bootstrap({
   functionalInfras: [databaseModule],
 });
 
-bootstrapFunction(app => {})(3000);
+export const hug = bootstrapFunction(app => {})(3000);
